@@ -9,12 +9,19 @@
 import UIKit
 import XLPagerTabStrip
 import WebKit
+import NVActivityIndicatorView
 
 class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDataSource, UITableViewDelegate, WKNavigationDelegate, XMLParserDelegate{
 
     // 引っ張って更新
     var refreshControl: UIRefreshControl!
 
+    // ロード中のインジケータ
+    private var activityIndicator: NVActivityIndicatorView!
+    
+    // ロード中のグレーの画面
+    private let grayOutView = UIView()
+    
     // テーブルビューのインスタンスを取得
     var tableView: UITableView = UITableView()
 
@@ -49,7 +56,7 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // refreshControlのインスタンス
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-
+        
         // デリゲートとの接続
         tableView.delegate = self
         tableView.dataSource = self
@@ -59,9 +66,24 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
         // tableviewのサイズを確定
         tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        
+        // activityIndicatorの生成、位置、色
+        activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: NVActivityIndicatorType.ballSpinFadeLoader, color: UIColor.red, padding: 0)
+        activityIndicator.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 50)
+        
+        // grayOutViewの範囲と色
+        grayOutView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        grayOutView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
+        
 
         // tableviewをviewに追加
         self.view.addSubview(tableView)
+        // refreshControlをテーブルビューにつける
+        tableView.addSubview(refreshControl)
+        // grayOutViewをviewにつける
+        view.addSubview(grayOutView)
+        // activityIndecatorをViewにつける
+        view.addSubview(activityIndicator)
 
         // refreshControlをテーブルビューにつける
         tableView.addSubview(refreshControl)
@@ -69,7 +91,8 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // 最初は隠す（tableviewが表示されるのを邪魔しないように）
         webView.isHidden = true
         toolBar.isHidden = true
-
+        grayOutView.isHidden = true
+        
         parseUrl()
     }
 
@@ -175,6 +198,13 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
     // セルをタップしたときの処理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // grayOutViewを表示
+        grayOutView.isHidden = false
+        // activityIndicatorと表示する
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        
         //
         let linkUrl = ((articles[indexPath.row] as AnyObject).value(forKey: "link") as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
         let urlStr = (linkUrl?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
@@ -194,6 +224,10 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         toolBar.isHidden = false
         // webviewを表示する
         webView.isHidden = false
+        
+        webView.isHidden = false
+
+        
     }
 
     // キャンセル
