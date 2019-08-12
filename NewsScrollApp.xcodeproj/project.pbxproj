@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49EE448B2301ADAA00386292 /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49EE448A2301ADAA00386292 /* NVActivityIndicatorView.framework */; };
 		9F4C09FA5F7F3E020254C9AE /* Pods_NewsScrollApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3FDC2B5A84D8AD40C28D34 /* Pods_NewsScrollApp.framework */; };
 		DD8AFB9922FF94B7005AFD25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8AFB9822FF94B7005AFD25 /* AppDelegate.swift */; };
 		DD8AFB9B22FF94B7005AFD25 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8AFB9A22FF94B7005AFD25 /* MainViewController.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		067A4849E8D03685510DAFAC /* Pods-NewsScrollApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsScrollApp.debug.xcconfig"; path = "Target Support Files/Pods-NewsScrollApp/Pods-NewsScrollApp.debug.xcconfig"; sourceTree = "<group>"; };
 		38880B95997246B4FDF2BDA3 /* Pods-NewsScrollApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsScrollApp.release.xcconfig"; path = "Target Support Files/Pods-NewsScrollApp/Pods-NewsScrollApp.release.xcconfig"; sourceTree = "<group>"; };
+		49EE448A2301ADAA00386292 /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NVActivityIndicatorView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD8AFB9522FF94B7005AFD25 /* NewsScrollApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsScrollApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD8AFB9822FF94B7005AFD25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD8AFB9A22FF94B7005AFD25 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49EE448B2301ADAA00386292 /* NVActivityIndicatorView.framework in Frameworks */,
 				DD8AFBAD22FFBD5C005AFD25 /* WebKit.framework in Frameworks */,
 				9F4C09FA5F7F3E020254C9AE /* Pods_NewsScrollApp.framework in Frameworks */,
 			);
@@ -48,6 +51,7 @@
 		87F0F30CA6FA6EDF964E9025 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49EE448A2301ADAA00386292 /* NVActivityIndicatorView.framework */,
 				DD8AFBAC22FFBD5C005AFD25 /* WebKit.framework */,
 				DF3FDC2B5A84D8AD40C28D34 /* Pods_NewsScrollApp.framework */,
 			);
