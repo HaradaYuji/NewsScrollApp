@@ -9,6 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
+
 class MainViewController: ButtonBarPagerTabStripViewController {
 
     // URLの文字列（yahoo,NHK,週刊文春)
