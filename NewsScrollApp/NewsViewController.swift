@@ -205,7 +205,7 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
-        //
+        // webviewを表示する
         let linkUrl = ((articles[indexPath.row] as AnyObject).value(forKey: "link") as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
         let urlStr = (linkUrl?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
         guard let url = URL(string: urlStr) else {
@@ -224,8 +224,11 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         toolBar.isHidden = false
         // webviewを表示する
         webView.isHidden = false
-        
-        webView.isHidden = false
+        // activityIndecatorを隠す
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
+        // grayOutViewを隠す
+        grayOutView.isHidden = true
 
         
     }
