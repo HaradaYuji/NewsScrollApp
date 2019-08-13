@@ -12,7 +12,11 @@ import WebKit
 import NVActivityIndicatorView
 
 class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDataSource, UITableViewDelegate, WKNavigationDelegate, XMLParserDelegate{
-
+    //インジケータの定義
+    var activityIndicatorView: NVActivityIndicatorView!
+    //背景の定義
+    var cover = UIView()
+    
     // 引っ張って更新
     var refreshControl: UIRefreshControl!
 
@@ -47,7 +51,15 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // refreshControlのインスタンス
+//        インジケータの生成
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: NVActivityIndicatorType.lineSpinFadeLoader, color: UIColor.red, padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
+        
+        //generate cover
+        cover.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        cover.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+
+        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
@@ -74,6 +86,7 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         parseUrl()
     }
 
+    
     @objc func refresh() {
         // 2秒後にdelayを呼ぶ
         perform(#selector(delay), with: nil, afterDelay: 2.0)
@@ -177,6 +190,8 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     // セルをタップしたときの処理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //
+        view.addSubview(cover)
+        view.addSubview(activityIndicatorView)
         let linkUrl = ((articles[indexPath.row] as AnyObject).value(forKey: "link") as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
         let urlStr = (linkUrl?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
         guard let url = URL(string: urlStr) else {
@@ -185,10 +200,18 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         let urlRequest = NSURLRequest(url: url)
         // ここでロード
         webView.load(urlRequest as URLRequest)
+
+        cover.isHidden = false
+        activityIndicatorView.isHidden = false
+        activityIndicatorView.startAnimating()
     }
 
     // ページの読み込み完了時に呼ばれる
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        activityIndicatorView.stopAnimating()
+        activityIndicatorView.isHidden = true
+        
+        cover.isHidden = true
         //tableviewを隠す
         tableView.isHidden = true
         // toolbarを表示する
