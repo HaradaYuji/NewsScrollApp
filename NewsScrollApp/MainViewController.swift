@@ -11,15 +11,7 @@ import XLPagerTabStrip
 import NVActivityIndicatorView
 
 class MainViewController: ButtonBarPagerTabStripViewController {
-    
-    
-    
 
-    
-    
-    
-    
-    
     // URLの文字列（yahoo,NHK,週刊文春)
     let urlList: [String] = ["https://news.yahoo.co.jp/pickup/domestic/rss.xml",
                              "https://www.nhk.or.jp/rss/news/cat0.xml",
