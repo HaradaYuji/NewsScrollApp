@@ -204,8 +204,8 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // ここでロード
         webView.load(urlRequest as URLRequest)
         
-        // 薄いグレーで画面を覆い他のボタンを押せないようにする
-        
+        // ★薄いグレーで画面を覆い他のボタンを押せないようにする
+        grayView.isHidden = false
        
           //ロード中のインジケータを表示する
         
@@ -221,6 +221,9 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         toolBar.isHidden = false
         // webviewを表示する
         webView.isHidden = false
+        
+        // ★grayViewを隠す
+        grayView.isHidden = true
     }
 
     // キャンセル
