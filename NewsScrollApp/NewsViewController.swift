@@ -73,7 +73,7 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         
        // ★activityIndicatorをつくり、位置やインジゲータの種類、色を決める
-        activityIndicator = NVActivityIndicatorView(frame: CGRect(x: self.view.center.x - 20, y: self.view.center.y , width: 30, height: 30), type: NVActivityIndicatorType.ballBeat, color: UIColor.white, padding: 0)
+        activityIndicator = NVActivityIndicatorView(frame: CGRect(x: self.view.center.x - 15, y: self.view.center.y , width: 30, height: 30), type: NVActivityIndicatorType.ballBeat, color: UIColor.white, padding: 0)
 
         
         // ★grayViewのサイズを確定(画面いっぱいに、tableViewと同じ大きさ)
