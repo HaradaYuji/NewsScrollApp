@@ -18,6 +18,9 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
     // テーブルビューのインスタンスを取得
     var tableView: UITableView = UITableView()
+    
+    // ★ロード中のグレーの画面を取得
+    var grayView = UIView()
 
     // XMLParserのインスタンスを取得
     var parser = XMLParser()
@@ -37,6 +40,8 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     // webview
     @IBOutlet weak var webView: WKWebView!
 
+
+    
     // toolbar(4つのボタンがはいってる)
     @IBOutlet weak var toolBar: UIToolbar!
     
@@ -60,9 +65,18 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
         // tableviewのサイズを確定
         tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        
+        // ★grayViewのサイズを確定(画面いっぱいに、tableViewと同じ大きさ)
+        grayView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        
+        // ★grayViewの色をグレーにする
+        grayView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
 
         // tableviewをviewに追加
         self.view.addSubview(tableView)
+        
+        // ★grayViewをviewに追加
+        self.view.addSubview(grayView)
 
         // refreshControlをテーブルビューにつける
         tableView.addSubview(refreshControl)
@@ -70,6 +84,10 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // 最初は隠す（tableviewが表示されるのを邪魔しないように）
         webView.isHidden = true
         toolBar.isHidden = true
+        
+        // ★grayViewは最初は隠す
+        grayView.isHidden = true
+    
 
         parseUrl()
     }
@@ -185,6 +203,14 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         let urlRequest = NSURLRequest(url: url)
         // ここでロード
         webView.load(urlRequest as URLRequest)
+        
+        // 薄いグレーで画面を覆い他のボタンを押せないようにする
+        
+       
+          //ロード中のインジケータを表示する
+        
+        
+        
     }
 
     // ページの読み込み完了時に呼ばれる
