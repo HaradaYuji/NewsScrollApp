@@ -19,6 +19,9 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     // テーブルビューのインスタンスを取得
     var tableView: UITableView = UITableView()
     
+    // ★ロード中のインジゲータを取得
+    private var activityIndicator: NVActivityIndicatorView!
+    
     // ★ロード中のグレーの画面を取得
     var grayView = UIView()
 
@@ -52,8 +55,11 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // refreshControlのインスタンス
+        // refreshControlのインスタンス化する
         refreshControl = UIRefreshControl()
+        
+        /* 引っ張った場合にどの処理をするかをaddTargetで指定する。
+           今回はrefreshを指定する。 */
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
         // デリゲートとの接続
@@ -66,6 +72,10 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // tableviewのサイズを確定
         tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         
+       // ★activityIndicatorをつくり、位置やインジゲータの種類、色を決める
+        activityIndicator = NVActivityIndicatorView(frame: CGRect(x: self.view.center.x - 20, y: self.view.center.y , width: 30, height: 30), type: NVActivityIndicatorType.ballBeat, color: UIColor.white, padding: 0)
+
+        
         // ★grayViewのサイズを確定(画面いっぱいに、tableViewと同じ大きさ)
         grayView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         
@@ -77,6 +87,9 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         
         // ★grayViewをviewに追加
         self.view.addSubview(grayView)
+        
+        // ★activityIndecatorをViewに追加
+        self.view.addSubview(activityIndicator)
 
         // refreshControlをテーブルビューにつける
         tableView.addSubview(refreshControl)
@@ -207,9 +220,9 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // ★薄いグレーで画面を覆い他のボタンを押せないようにする
         grayView.isHidden = false
        
-          //ロード中のインジケータを表示する
-        
-        
+       // ★ロード中のインジケータを表示する
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         
     }
 
@@ -224,6 +237,8 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         
         // ★grayViewを隠す
         grayView.isHidden = true
+        
+        activityIndicator.isHidden = true
     }
 
     // キャンセル
