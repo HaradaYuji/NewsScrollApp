@@ -53,7 +53,7 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         super.viewDidLoad()
 //        インジケータの生成
         activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: NVActivityIndicatorType.lineSpinFadeLoader, color: UIColor.red, padding: 0)
-        activityIndicatorView.center = self.view.center // 位置を中心に設定
+        activityIndicatorView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 50) // 位置を中心に設定
         
         //generate cover
         cover.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
@@ -189,18 +189,20 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
 
     // セルをタップしたときの処理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
+        //カバー追加
         view.addSubview(cover)
+        //その上にインジケータ追加
         view.addSubview(activityIndicatorView)
+        //URLをformする
         let linkUrl = ((articles[indexPath.row] as AnyObject).value(forKey: "link") as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
         let urlStr = (linkUrl?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
         guard let url = URL(string: urlStr) else {
             return
         }
         let urlRequest = NSURLRequest(url: url)
-        // ここでロード
+        // URL先の読み込み
         webView.load(urlRequest as URLRequest)
-
+        //cover,インジケータのhiddenを解除する
         cover.isHidden = false
         activityIndicatorView.isHidden = false
         activityIndicatorView.startAnimating()
