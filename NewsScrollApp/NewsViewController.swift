@@ -229,8 +229,6 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         activityIndicator.stopAnimating()
         // grayOutViewを隠す
         grayOutView.isHidden = true
-
-        
     }
 
     // キャンセル
