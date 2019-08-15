@@ -8,6 +8,7 @@
 
 import UIKit
 import XLPagerTabStrip
+import NVActivityIndicatorView
 
 class MainViewController: ButtonBarPagerTabStripViewController {
 
@@ -21,6 +22,8 @@ class MainViewController: ButtonBarPagerTabStripViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
     }
 
     // 各VCを返す処理
@@ -46,4 +49,5 @@ class MainViewController: ButtonBarPagerTabStripViewController {
         return childViewControllers
     }
 }
+
 
