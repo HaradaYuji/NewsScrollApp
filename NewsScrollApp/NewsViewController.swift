@@ -15,19 +15,14 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     
     // 引っ張って更新
     var refreshControl: UIRefreshControl!
-    
     // テーブルビューのインスタンスを取得
     var tableView: UITableView = UITableView()
-    
     // ★ロード中のインジゲータを取得
     private var activityIndicator: NVActivityIndicatorView!
-    
     // ★ロード中のグレーの画面を取得
     var grayView = UIView()
-    
     // XMLParserのインスタンスを取得
     var parser = XMLParser()
-    
     // 記事情報の配列の入れ物
     var articles: [Any] = []
     // XMLファイルに解析をかけた情報
@@ -38,13 +33,10 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     var titleString: String = ""
     // XMLファイルのリンク情報
     var linkString: String = ""
-    
     // webview
     @IBOutlet weak var webView: WKWebView!
-    
     // toolbar(4つのボタンがはいってる)
     @IBOutlet weak var toolBar: UIToolbar!
-    
     // urlを受け取る
     var url: String = ""
     // itemInfoを受け取る
